@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE = "http://localhost:8000/api";
+const BASE = "https://ffrrin-orbit-backend.hf.space/api";
 
 export interface TelemetryPoint {
   timestamp: string;
