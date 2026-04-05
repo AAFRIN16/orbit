@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import HealthRing from "../components/HealthRing";
 import ShapChart from "../components/ShapChart";
 import ExportPDF from "../components/ExportPDF";
+import ExplanationPanel from "../components/ExplanationPanel";
 
 const FEATURE_ICONS: Record<string, string> = {
   battery_level: "🔋", solar_input: "☀️", power_load: "⚡",
@@ -29,7 +30,6 @@ export default function Analysis() {
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <div className="max-w-7xl mx-auto p-6">
 
-          {/* Page Header */}
           <div className="flex items-start justify-between mb-8 flex-wrap gap-4">
             <div>
               <h1 style={{ fontSize: "1.8rem", fontWeight: 800, color: "white",
@@ -62,7 +62,6 @@ export default function Analysis() {
             </div>
           )}
 
-          {/* Top Metric Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             {[
               {
@@ -93,7 +92,6 @@ export default function Analysis() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-            {/* SHAP Chart */}
             <div className="lg:col-span-2">
               {explain ? <ShapChart shap_values={explain.shap_values} /> :
                 <div style={{ background: "#0d1424", borderRadius: 10, padding: 40,
@@ -102,7 +100,6 @@ export default function Analysis() {
                 </div>}
             </div>
 
-            {/* Health Ring + Model Stats */}
             <div className="flex flex-col gap-4">
               <div style={{ background: "#0d1424", border: "1px solid rgba(107,195,201,0.12)",
                 borderRadius: 10, padding: 20, display: "flex", flexDirection: "column",
@@ -142,7 +139,6 @@ export default function Analysis() {
             </div>
           </div>
 
-          {/* Feature Detail Cards */}
           {explain && (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
               {Object.entries(explain.shap_values)
@@ -184,7 +180,18 @@ export default function Analysis() {
             </div>
           )}
 
-          {/* Export PDF */}
+          {anomaly && explain && (
+            <div className="mb-6">
+              <ExplanationPanel
+                scenario={scenario}
+                anomalyScore={anomaly.max_score}
+                anomalyCount={anomaly.anomaly_count}
+                topFeature={explain.top_feature}
+                healthScore={healthScore}
+                isAnomalous={isAnomalous} />
+            </div>
+          )}
+
           <ExportPDF
             onExport={exportPDF}
             loading={pdfLoading}

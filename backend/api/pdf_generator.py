@@ -10,6 +10,7 @@ from datetime import datetime
 def generate_pdf(
     telemetry_snapshot: dict,
     anomaly_score: float,
+    mean_score: float,
     anomaly_count: int,
     shap_values: dict,
     top_feature: str,
@@ -75,7 +76,7 @@ def generate_pdf(
     # --- Anomaly Status ---
     section_title("ANOMALY STATUS", "#1F3864")
     score_pct = round(anomaly_score * 100, 1)
-    health = max(0, min(100, round((1 - anomaly_score) * 100)))
+    health = max(0, min(100, round((1 - mean_score) * 100)))
     status = "CRITICAL" if anomaly_score > 0.65 else "ELEVATED" if anomaly_score > 0.4 else "NOMINAL"
     status_color = "#c0392b" if status == "CRITICAL" else "#e67e22" if status == "ELEVATED" else "#27ae60"
     badge(f"STATUS: {status}", status_color)

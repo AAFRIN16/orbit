@@ -32,6 +32,7 @@ class ExplainRequest(BaseModel):
 class PDFRequest(BaseModel):
     telemetry_snapshot: dict
     anomaly_score: float
+    mean_score: float = 0.5
     anomaly_count: int
     shap_values: dict
     top_feature: str
@@ -80,6 +81,7 @@ def export_pdf(req: PDFRequest):
         pdf_bytes = generate_pdf(
             req.telemetry_snapshot,
             req.anomaly_score,
+            req.mean_score,
             req.anomaly_count,
             req.shap_values,
             req.top_feature,
