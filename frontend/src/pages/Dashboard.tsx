@@ -8,6 +8,7 @@ import AnomalyIndicator from "../components/AnomalyIndicator";
 import HealthRing from "../components/HealthRing";
 import ControlPanel from "../components/ControlPanel";
 import ExportPDF from "../components/ExportPDF";
+import ExplanationPanel from "../components/ExplanationPanel";
 
 export default function Dashboard() {
   const { telemetry, anomaly, explain, loading, pdfLoading, error,
@@ -103,6 +104,17 @@ export default function Dashboard() {
                 <AnomalyIndicator
                   score={anomaly.max_score}
                   count={anomaly.anomaly_count}
+                  isAnomalous={isAnomalous} />
+              )}
+
+              {/* Plain English Explanation */}
+              {anomaly && explain && (
+                <ExplanationPanel
+                  scenario={scenario}
+                  anomalyScore={anomaly.max_score}
+                  anomalyCount={anomaly.anomaly_count}
+                  topFeature={explain.top_feature}
+                  healthScore={healthScore}
                   isAnomalous={isAnomalous} />
               )}
 

@@ -6,7 +6,7 @@ import os
 load_dotenv()
 
 from api.routes import router
-from models.anomaly_detector import load_model
+from models.anomaly_detector import train_model
 
 app = FastAPI(title="ORBIT Backend", version="1.0.0")
 
@@ -23,5 +23,6 @@ app.include_router(router, prefix="/api")
 @app.on_event("startup")
 async def startup_event():
     print("🛰️  ORBIT backend starting...")
-    load_model()
-    print("✅  Model loaded/trained successfully")
+    print("🔄  Retraining model with enhanced parameters...")
+    train_model()
+    print("✅  Model trained and ready")
