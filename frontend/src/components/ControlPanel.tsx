@@ -60,7 +60,7 @@ interface ControlPanelProps {
             boxShadow: "none", transition: "all 0.2s",
             opacity: (reportLoading || loading) ? 0.5 : 1,
           }}>
-          {reportLoading ? "⏳ Generating..." : "🛰️ GENERATE AI REPORT"}
+          {reportLoading ? "⏳ Generating..." : "🛰️ GENERATE REPORT"}
         </button>
       </div>
     );
